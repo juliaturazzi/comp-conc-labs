@@ -1,25 +1,65 @@
-Roteiro:
-1. Implemente a func ̧ao de inicializac ̧  ̃ ao do vetor de entrada preenchendo seus cam-  ̃
-pos com valores aleatorios  ́ do tipo float. O numero de elementos (N) do vetor  ́
-deve ser informado pelo usuario na chamada do programa.  ́ Sugestao: defina  ̃
-a variavel N do tipo  ́ long long int e use a func ̧ao ̃ atoll() para converter o valor
-recebido do usuario (string) para long long int.  ́
+## 1) Calcule o desempenho (aceleração) e registre os resultados obtidos em cada caso:
 
-2. Implemente uma func ̧ao sequencial  ̃ para resolver o problema e mec ̧a o seu tempo
-de execuc ̧ao.  ̃
+Utilizando N = 10ˆ5 e nthreads = 1:
+Tempo sequencial:  0.000239
+Tempo concorrente:  0.000460
 
-3. Implemente uma func ̧ao concorrente  ̃ para resolver o problema e mec ̧a o seu
-tempo de execuc ̧ao. O  ̃ numero de threads (NTHREADS) deve ser informado  ́
-pelo usuario na chamada do programa.  ́
+Desempenho: 0.520765375681
 
-4. Verifique a corretude da soluc ̧ao concorrente comparando seus resultados com os  ̃
-resultados da versao sequencial para o mesmo vetor de entrada.  ̃
 
-5. Calcule o ganho de desempenho (acelerac ̧ao) obtido com a vers  ̃ ao concorrente:  ̃
-(Tsequencial/Tconcorrente). Considere os seguintes valores de N: 10ˆ5, 10ˆ7, 10ˆ8
-(caso tenha espac ̧o de memoria suficiente). Para a vers  ́ ao concorrente, experimente  ̃
-com 1, 2 e 4 threads. Repita a execuc ̧ao do programa ao menos  ̃ 5 vezes para
-cada configurac ̧ao dos par  ̃ ametros de entrada. Use o menor tempo obtido nessas ˆ
-execuc ̧oes para a vers  ̃ ao sequencial e para a vers  ̃ ao concorrente e ent  ̃ ao calcule a  ̃
-acelerac ̧ao.  ̃ Escreva os resultados de acelerac ̧ao obtidos no README do c  ̃ odigo  ́
-no GitHub ou GitLab.
+Utilizando N = 10ˆ5 e nthreads = 2:
+Tempo sequencial:  0.000235
+Tempo concorrente:  0.000351
+
+Desempenho: 0.667709819574
+
+
+Utilizando N = 10ˆ5 e nthreads = 4:
+Tempo sequencial:  0.000214
+Tempo concorrente:  0.000499
+
+Desempenho: 0.429689068411
+
+
+
+Utilizando N = 10ˆ7 e nthreads = 1:
+Tempo sequencial:  0.021436
+Tempo concorrente:  0.024378
+
+Desempenho: 0.879307091471
+
+
+Utilizando N = 10ˆ7 e nthreads = 2:
+Tempo sequencial:  0.022172
+Tempo concorrente:  0.012042
+
+Desempenho: 1.841232010548
+
+
+Utilizando N = 10ˆ7 e nthreads = 4:
+Tempo sequencial:  0.021495
+Tempo concorrente:  0.006703
+
+Desempenho: 3.206773085494
+
+
+
+Utilizando N = 10ˆ8 e nthreads = 1:
+Tempo sequencial:  0.221788
+Tempo concorrente:  0.232651
+
+Desempenho: 0.953311102569
+
+
+Utilizando N = 10ˆ8 e nthreads = 2:
+Tempo sequencial:  0.238509
+Tempo concorrente:  0.131879
+
+Desempenho: 1.808544050652
+
+
+Utilizando N = 10ˆ8 e nthreads = 4:
+Tempo sequencial:  0.248783
+Tempo concorrente:  0.088108
+
+Desempenho: 2.823627019704
