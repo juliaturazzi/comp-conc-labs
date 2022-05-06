@@ -8,11 +8,11 @@ long long int N; //numero de elementos do vetor
 int nthreads; //numero de threads
 double *vetor; //vetor de entrada com dimensao N
 
-double sequential_m; //menor valor sequencial
-double sequential_M; //maior valor sequencial
+float sequential_m; //menor valor sequencial
+float sequential_M; //maior valor sequencial
 
-double concurrent_m; //menor valor concorrente
-double concurrent_M; //maior valor concorrente
+float concurrent_m; //menor valor concorrente
+float concurrent_M; //maior valor concorrente
 
 //fluxo das threads
 void * tarefa(void * arg) {
@@ -29,14 +29,15 @@ void * tarefa(void * arg) {
    concurrent_m = vetor[0];
    concurrent_M = vetor[0];
    
-   for(long int i=0; i<N; i++) {
-      if(vetor[i] > concurrent_M) concurrent_M = vetor[i];
+   for(long int i=ini; i<fim; i++) {
       if(vetor[i] < concurrent_m) concurrent_m = vetor[i];
+      if(vetor[i] > concurrent_M) concurrent_M = vetor[i];
    }
    pthread_exit(NULL);
 }
 
-void vetorCreation(int N) { 
+//cria um vetor
+void vetorCreation(long long int N) { 
   srand(time(NULL));
    for (int i=0; i<N; i++)  vetor[i] = rand() % 100000000000000;
    }
@@ -65,8 +66,10 @@ int main(int argc, char *argv[]) {
       return 2;
    }
 
+   //criacao do vetor
    vetorCreation(N);
  
+   //modifica o elemento do vetor na posicao i para cada valor sequencial (menor e maior)
    GET_TIME(ini);
    sequential_m = vetor[0];
    sequential_M = vetor[0];
@@ -76,9 +79,9 @@ int main(int argc, char *argv[]) {
       if(vetor[i] > sequential_M) sequential_M = vetor[i];
    }
 
+   //obtem o tempo sequencial
    GET_TIME(fim);
    sequential_time = fim-ini;
-   printf("Tempo sequencial:  %lf\n",sequential_time);
 
    //maior e o menor valor do vetor (concorrente)
    GET_TIME(ini);
@@ -104,9 +107,9 @@ int main(int argc, char *argv[]) {
       }
    }
    
+   //obtem o tempo concorrente
    GET_TIME(fim);
    concurrent_time = fim-ini;
-   printf("Tempo concorrente:  %lf\n\n", concurrent_time);
 
    //verifica se os valores acessados são iguais no sequencial e concorrente
    if(sequential_m != concurrent_m) {
@@ -121,6 +124,10 @@ int main(int argc, char *argv[]) {
    printf("Menor sequencial:  %.12lf\nMaior sequencial:  %.12lf\n\n", sequential_m, sequential_M);
    printf("Menor concorrente: %.12lf\nMaior concorrente: %.12lf\n\n", concurrent_m, concurrent_M);
 
+   printf("Tempo sequencial:  %lf\n",sequential_time);
+   printf("Tempo concorrente:  %lf\n\n", concurrent_time);
+
+   //aceleracao
    printf("Desempenho: %.12lf\n\n\n", sequential_time/ concurrent_time);
 
    //libera as areas de memoria alocadas
