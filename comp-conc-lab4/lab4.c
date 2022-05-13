@@ -36,7 +36,7 @@ void funcaoSequencial (long long int dim, int * vetorInicial) {
   }
 }
 
-//funcao executada pelas threads
+//funcao executada pelas threads (concorrente)
 void *processaPrimos () {
   pthread_mutex_lock(&mutex);
   int variavel_threads = variavel;
