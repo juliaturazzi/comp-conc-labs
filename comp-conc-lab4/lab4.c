@@ -79,7 +79,7 @@ int main (int argc, char *argv[])
   vetorSaidaConcorrente = (float *)malloc(sizeof(float) * dim);
   vetorSaidaSequencial = (float *)malloc(sizeof(float) * dim);
 
-  //preenchimento do vetor
+  //preenche o vetor
   srand(time(NULL));
   for(long int i = 0; i < dim; i++){
     vetorInicial[i] = rand() % 100000;
