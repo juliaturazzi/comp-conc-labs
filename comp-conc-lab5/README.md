@@ -27,4 +27,3 @@
   <br>
    <h4>4. 
      Sim, é uma maneira de sempre retornar e verificar a condição, aumentando a precisão do código.
-     
