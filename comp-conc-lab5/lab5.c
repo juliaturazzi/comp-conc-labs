@@ -11,7 +11,7 @@ pthread_cond_t x_cond;
 
 
 /* Thread 1: última a executar */
-void * thread_1 (void * t) {
+void * t1 (void * t) {
 
   pthread_mutex_lock(&x_mutex);
 
@@ -27,7 +27,7 @@ void * thread_1 (void * t) {
 }
 
 /* Thread 2 */
-void * thread_2 (void * t) {
+void * t2 (void * t) {
   printf("Fique a vontade.\n");
 
   pthread_mutex_lock(&x_mutex);
@@ -47,7 +47,7 @@ void * thread_2 (void * t) {
 }
 
 /* Thread 3 */
-void * thread_3 (void * t) {
+void * t3 (void * t) {
   printf("Sente-se por favor.\n");
 
   pthread_mutex_lock(&x_mutex);
@@ -67,7 +67,7 @@ void * thread_3 (void * t) {
 }
 
 /* Thread 4 */
-void * thread_4 (void * t) {
+void * t4 (void * t) {
   printf("Aceita um copo d’água?\n");
 
   pthread_mutex_lock(&x_mutex);
@@ -87,7 +87,7 @@ void * thread_4 (void * t) {
 }
 
 /* Thread 5: primeira a executar */
-void * thread_5 (void * t) {
+void * t5 (void * t) {
   printf("Seja bem-vindo!\n");  //primeira mensagem a aparecer
   
   pthread_mutex_lock(&x_mutex);
@@ -111,11 +111,11 @@ int main(int argc, char *argv[]) {
   pthread_cond_init (&x_cond, NULL);
 
   /* Cria as threads */
-  pthread_create(&threads[0], NULL, thread_1, NULL);
-  pthread_create(&threads[1], NULL, thread_2, NULL);
-  pthread_create(&threads[2], NULL, thread_3, NULL);
-  pthread_create(&threads[3], NULL, thread_4, NULL);
-  pthread_create(&threads[4], NULL, thread_5, NULL);
+  pthread_create(&threads[0], NULL, t1, NULL);
+  pthread_create(&threads[1], NULL, t2, NULL);
+  pthread_create(&threads[2], NULL, t3, NULL);
+  pthread_create(&threads[3], NULL, t4, NULL);
+  pthread_create(&threads[4], NULL, t5, NULL);
   
   /* Espera todas as threads completarem */
   for (i = 0; i < NTHREADS; i++) {
