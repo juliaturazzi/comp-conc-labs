@@ -111,11 +111,11 @@ int main(int argc, char *argv[]) {
   pthread_cond_init (&x_cond, NULL);
 
   /* Cria as threads */
-  pthread_create(&threads[0], NULL, t1, NULL);
-  pthread_create(&threads[1], NULL, t2, NULL);
-  pthread_create(&threads[2], NULL, t3, NULL);
-  pthread_create(&threads[3], NULL, t4, NULL);
   pthread_create(&threads[4], NULL, t5, NULL);
+  pthread_create(&threads[3], NULL, t4, NULL);
+  pthread_create(&threads[2], NULL, t3, NULL);
+  pthread_create(&threads[1], NULL, t2, NULL);
+  pthread_create(&threads[0], NULL, t1, NULL);
   
   /* Espera todas as threads completarem */
   for (i = 0; i < NTHREADS; i++) {
