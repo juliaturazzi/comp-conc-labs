@@ -4,13 +4,8 @@
   <br>
   <h4>3. 
     Não, o programa não encerrou já que o contador x (variável global utilizada no programa) nunca chegou ao valor 2, que é a condição de desbloqueio da thread B.
-  <br>
-  <h4>5.
-    O programa apresentou dois comportamentos diferentes:
-   <h5>&emsp; 1. As mensagens "HELLO" foram printadas antes das "BYE".
-   <h5>&emsp; 2. A thread B possui somente um sinal de desbloqueio, resultando no print de apenas um "BYE".
-     
 
+     
 <br><br>
 <h2>Atividade 2:
   <h4>2. 
