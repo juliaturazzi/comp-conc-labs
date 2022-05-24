@@ -11,7 +11,7 @@ int leit=0; //contador de threads lendo
 int escr=0; //contador de threads escrevendo
 
 int leit_esperando=0; //contador de threads esperando para ler
-int escr_esperando=0; //contador de threads desejam escrever
+int escr_esperando=0; //contador de threads esperando para escrever
 
 //variaveis para sincronizacao
 pthread_mutex_t mutex;
@@ -73,7 +73,9 @@ void FimEscr (int id) {
    escr--;
    
    pthread_cond_signal(&cond_escr);
-   pthread_cond_broadcast(&cond_leit);
+
+   if(escr_esperando == 0)  pthread_cond_broadcast(&cond_leit);
+   
    pthread_mutex_unlock(&mutex);
 }
 
