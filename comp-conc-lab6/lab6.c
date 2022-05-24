@@ -18,26 +18,26 @@ pthread_mutex_t mutex;
 pthread_cond_t cond_leit, cond_escr;
 
 //entrada leitura
-void InicLeit (int id) {
+void InicLeit (int id){
    pthread_mutex_lock(&mutex);
-   leit_esperando++;
+   leit_esperando++;  //incrementa quando um leitor deseja ler
   
    printf("L[%d] quer ler\n", id);
    
-   while((escr > 0) || (escr_esperando > 0)) {
+   while((escr > 0) || (escr_esperando > 0)){   //bloqueia se possuir algum escritor desejando escrever
      printf("L[%d] bloqueou\n", id);
      pthread_cond_wait(&cond_leit, &mutex);
      printf("L[%d] desbloqueou\n", id);
    }
    
    leit++;
-   leit_esperando--;
+   leit_esperando--;  //decrementa depois que um leitor começa a ler
 
    pthread_mutex_unlock(&mutex);
 }
 
 //saida leitura
-void FimLeit (int id) {
+void FimLeit (int id){
    pthread_mutex_lock(&mutex);
 
    printf("L[%d] terminou de ler\n", id);
@@ -48,25 +48,25 @@ void FimLeit (int id) {
 }
 
 //entrada escrita
-void InicEscr (int id) {
+void InicEscr (int id){
    pthread_mutex_lock(&mutex);
-   escr_esperando++;
+   escr_esperando++;  //incrementa quando um escritor deseja escrever
    
    printf("E[%d] quer escrever\n", id);
    
-   while((leit > 0) || (escr > 0)) {
+   while((leit > 0) || (escr > 0)){
      printf("E[%d] bloqueou\n", id);
      pthread_cond_wait(&cond_escr, &mutex);
      printf("E[%d] desbloqueou\n", id);
    }
    escr++;
-   escr_esperando--;
+   escr_esperando--;  //decrementa depois que um escritor começa a escrever
 
    pthread_mutex_unlock(&mutex);
 }
 
 //saida escrita
-void FimEscr (int id) {
+void FimEscr (int id){
    pthread_mutex_lock(&mutex);
 
    printf("E[%d] terminou de escrever\n", id);
@@ -74,15 +74,15 @@ void FimEscr (int id) {
    
    pthread_cond_signal(&cond_escr);
 
-   if(escr_esperando == 0)  pthread_cond_broadcast(&cond_leit);
-   
+   if(escr_esperando == 0)  pthread_cond_broadcast(&cond_leit);   //desbloqueia o leitor quando não há escritores desejando escrever
+
    pthread_mutex_unlock(&mutex);
 }
 
 //thread leitora
-void * leitor (void * arg) {
+void * leitor (void * arg){
   int *id = (int *) arg;
-  while(1) {
+  while(1){
     InicLeit(*id);
     printf("Leitora %d esta lendo\n", *id);
     FimLeit(*id);
@@ -93,9 +93,9 @@ void * leitor (void * arg) {
 }
 
 //thread leitora
-void * escritor (void * arg) {
+void * escritor (void * arg){
   int *id = (int *) arg;
-  while(1) {
+  while(1){
     InicEscr(*id);
     printf("Escritora %d esta escrevendo\n", *id);
     FimEscr(*id);
@@ -106,7 +106,7 @@ void * escritor (void * arg) {
 }
 
 //funcao principal
-int main(void) {
+int main(void){
   //identificadores das threads
   pthread_t tid[L+E];
   int id[L+E];
@@ -117,13 +117,13 @@ int main(void) {
   pthread_cond_init(&cond_escr, NULL);
 
   //cria as threads leitoras
-  for(int i=0; i<L; i++) {
+  for(int i=0; i<L; i++){
     id[i] = i+1;
     if(pthread_create(&tid[i], NULL, leitor, (void *) &id[i])) exit(-1);
   } 
   
   //cria as threads escritoras
-  for(int i=0; i<E; i++) {
+  for(int i=0; i<E; i++){
     id[i+L] = i+1;
     if(pthread_create(&tid[i+L], NULL, escritor, (void *) &id[i+L])) exit(-1);
   } 
