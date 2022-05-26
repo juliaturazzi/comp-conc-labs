@@ -20,9 +20,9 @@ pthread_cond_t cond_leit, cond_escr;
 //entrada leitura
 void InicLeit (int id){
    pthread_mutex_lock(&mutex);
-   leit_esperando++;  //incrementa quando um leitor deseja ler
   
    printf("L[%d] quer ler\n", id);
+   leit_esperando++;  //incrementa quando um leitor deseja ler
    
    while((escr > 0) || (escr_esperando > 0)){   //bloqueia se possuir algum escritor desejando escrever
      printf("L[%d] bloqueou\n", id);
@@ -50,9 +50,9 @@ void FimLeit (int id){
 //entrada escrita
 void InicEscr (int id){
    pthread_mutex_lock(&mutex);
-   escr_esperando++;  //incrementa quando um escritor deseja escrever
    
    printf("E[%d] quer escrever\n", id);
+   escr_esperando++;  //incrementa quando um escritor deseja escrever
    
    while((leit > 0) || (escr > 0)){
      printf("E[%d] bloqueou\n", id);
