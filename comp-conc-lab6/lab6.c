@@ -10,7 +10,7 @@
 int leit=0; //contador de threads lendo
 int escr=0; //contador de threads escrevendo
 
-int leit_esperando=0; //contador de threads esperando para ler
+// int leit_esperando=0; //contador de threads esperando para ler
 int escr_esperando=0; //contador de threads esperando para escrever
 
 //variaveis para sincronizacao
@@ -22,7 +22,7 @@ void InicLeit (int id){
    pthread_mutex_lock(&mutex);
   
    printf("L[%d] quer ler\n", id);
-   // leit_esperando++;  //incrementa quando um leitor deseja ler
+  //  leit_esperando++;  //incrementa quando um leitor deseja ler
    
    while((escr > 0) || (escr_esperando > 0)){   //bloqueia se possuir algum escritor desejando escrever
      printf("L[%d] bloqueou\n", id);
@@ -31,7 +31,7 @@ void InicLeit (int id){
    }
    
    leit++;
-   // leit_esperando--;  //decrementa depois que um leitor começa a ler
+  //  leit_esperando--;  //decrementa depois que um leitor começa a ler
 
    pthread_mutex_unlock(&mutex);
 }
