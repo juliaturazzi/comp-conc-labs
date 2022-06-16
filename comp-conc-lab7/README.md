@@ -20,6 +20,3 @@ A saída esperada para o programa (valor final de s) seria 200000.
 
 <h2>Atividade 4:
 <h4>3. Sim. Isso ocorre porque há uma sincronização entre as threads, dessa forma a necessidade da exclusão mútua foi atendida.
-
-<br><br>
-
