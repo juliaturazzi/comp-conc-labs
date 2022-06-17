@@ -55,7 +55,7 @@ class Pares {
   // classe da aplicacao
   public class IdentificandoPares {
       static final int NTHREADS = 6;
-      static final int TAM_LISTA = 20000;
+      static final int TAM_LISTA = 2415;
       
       public static void main (String[] args) {
       
