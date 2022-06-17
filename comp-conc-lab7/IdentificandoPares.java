@@ -44,7 +44,7 @@ class Pares {
 
     // metodo main da thread
     public void run() {
-        for (int i = id; i < this.pares.quantNum(); i+=IdentificandoPares.NTHREADS){
+        for (int i = id; i < this.pares.quantNum(); i+=IdentificandoPares.NTHREADS) { 
             if(((this.pares.getVar(i))%2) == 0) { pares.numPar(); }
         }
 
