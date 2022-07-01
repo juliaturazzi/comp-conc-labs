@@ -23,6 +23,7 @@ void * t1 (void * threadid) {
 /* Thread 2 */
 void * t2 (void * threadid) {
   printf("Fique a vontade.\n");
+  
   sem_wait(&condt2); //permite que a thread execute
   x++;
 
@@ -36,6 +37,7 @@ void * t2 (void * threadid) {
 /* Thread 3 */
 void * t3 (void * threadid) {
   printf("Sente-se por favor.\n");
+  
   sem_wait(&condt2); //permite que a thread execute
   x++;
 
@@ -63,8 +65,8 @@ void * t4 (void * threadid) {
 /* Thread 5: primeira a executar */
 void * t5 (void * threadid) {
   printf("Seja bem-vindo!\n");  //primeira mensagem a aparecer
+  
   x = 1;
-
   sem_post(&condt2); //permite que as threads 2, 3 e 4 executem
 
   pthread_exit(NULL);
