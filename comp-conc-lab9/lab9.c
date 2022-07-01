@@ -7,29 +7,28 @@
 
 /* Variaveis globais */
 int x = 0; //variavel compartilhada entre as threads
-sem_t condt2, condt3;
+sem_t condt2, condt3; // semaforo para exclusao mutua entre as threads
 
 
+//funcao executada pelas threads
 /* Thread 1: última a executar */
 void * t1 (void * threadid) {
-  while (x < 4) sem_wait(&condt3); //espera todas as threads executarem
+  sem_wait(&condt3); //espera todas as threads executarem
   
   printf("Volte sempre!\n");
   
   pthread_exit(NULL);
 }
 
-
 /* Thread 2 */
 void * t2 (void * threadid) {
   printf("Fique a vontade.\n");
   
   sem_wait(&condt2); //permite que a thread execute
-  x++;
+  x++; //incremento da variavel global
 
-  if (x < 1) sem_wait(&condt2); 
-
-  if (x == 4) sem_post(&condt3);
+  if (x == 3) sem_post(&condt3); //libera a thread 1
+  sem_post(&condt2); //libera a proxima thread
   
   pthread_exit(NULL);
 }
@@ -39,11 +38,10 @@ void * t3 (void * threadid) {
   printf("Sente-se por favor.\n");
   
   sem_wait(&condt2); //permite que a thread execute
-  x++;
+  x++; //incremento da variavel global
 
-  if (x < 1) sem_wait(&condt2); 
-
-  if (x == 4) sem_post(&condt3); 
+  if (x == 3) sem_post(&condt3); //libera a thread 1
+  sem_post(&condt2); //libera a proxima thread
   
   pthread_exit(NULL);
 }
@@ -53,11 +51,10 @@ void * t4 (void * threadid) {
   printf("Aceita um copo d’água?\n");
   
   sem_wait(&condt2); //permite que a thread execute
-  x++;
+  x++; //incremento da variavel global
 
-  if (x < 1) sem_wait(&condt2); 
-
-  if (x == 4) sem_post(&condt3);
+  if (x == 3) sem_post(&condt3); //libera a thread 1
+  sem_post(&condt2);  //libera a proxima thread
 
   pthread_exit(NULL);
 }
@@ -65,15 +62,14 @@ void * t4 (void * threadid) {
 /* Thread 5: primeira a executar */
 void * t5 (void * threadid) {
   printf("Seja bem-vindo!\n");  //primeira mensagem a aparecer
-  
-  x = 1;
+
   sem_post(&condt2); //permite que as threads 2, 3 e 4 executem
 
   pthread_exit(NULL);
 }
 
 
-/* Funcao principal */
+//funcao principal
 int main(int argc, char *argv[]) {
   pthread_t tid[NTHREADS];
   int *id[5], t;
@@ -94,8 +90,8 @@ int main(int argc, char *argv[]) {
   if (pthread_create(&tid[0], NULL, t5, (void *)id[0])) { printf("--ERRO: pthread_create()\n"); exit(-1); }
   if (pthread_create(&tid[1], NULL, t4, (void *)id[1])) { printf("--ERRO: pthread_create()\n"); exit(-1); }
   if (pthread_create(&tid[2], NULL, t3, (void *)id[2])) { printf("--ERRO: pthread_create()\n"); exit(-1); }
-  if (pthread_create(&tid[3], NULL, t2, (void *)id[0])) { printf("--ERRO: pthread_create()\n"); exit(-1); }
-  if (pthread_create(&tid[4], NULL, t1, (void *)id[0])) { printf("--ERRO: pthread_create()\n"); exit(-1); }
+  if (pthread_create(&tid[3], NULL, t2, (void *)id[3])) { printf("--ERRO: pthread_create()\n"); exit(-1); }
+  if (pthread_create(&tid[4], NULL, t1, (void *)id[4])) { printf("--ERRO: pthread_create()\n"); exit(-1); }
 
   //--espera todas as threads terminarem
   for (t=0; t<NTHREADS; t++) {
@@ -104,5 +100,6 @@ int main(int argc, char *argv[]) {
     } 
     free(id[t]);
   } 
+
   pthread_exit(NULL);
 }
