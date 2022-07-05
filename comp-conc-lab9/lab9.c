@@ -28,7 +28,7 @@ void * t2 (void * threadid) {
   x++; //incremento da variavel global
 
   if (x == 3) sem_post(&condt3); //libera a thread 1
-  sem_post(&condt2); //libera a proxima thread
+  else sem_post(&condt2); //libera a proxima thread
   
   pthread_exit(NULL);
 }
@@ -41,7 +41,7 @@ void * t3 (void * threadid) {
   x++; //incremento da variavel global
 
   if (x == 3) sem_post(&condt3); //libera a thread 1
-  sem_post(&condt2); //libera a proxima thread
+  else sem_post(&condt2); //libera a proxima thread
   
   pthread_exit(NULL);
 }
@@ -54,7 +54,7 @@ void * t4 (void * threadid) {
   x++; //incremento da variavel global
 
   if (x == 3) sem_post(&condt3); //libera a thread 1
-  sem_post(&condt2);  //libera a proxima thread
+  else sem_post(&condt2);  //libera a proxima thread
 
   pthread_exit(NULL);
 }
