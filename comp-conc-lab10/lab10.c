@@ -28,12 +28,13 @@ void *Leitor (void *threadid) {
      fprintf(stderr, "Leitor: %d esta lendo!\n", tid);
      
      sleep(1);
+     
+     fprintf(stderr, "Leitor: %d terminou de ler!\n",  tid);
 
      //le...
      sem_wait(&em_l); l--;
      if(l==0) sem_post(&escr);
 
-     fprintf(stderr, "Leitor: %d terminou de ler!\n",  tid);
      sem_post(&em_l);
 
      sleep(1);
@@ -42,7 +43,6 @@ void *Leitor (void *threadid) {
   free(threadid);
   pthread_exit(NULL);
 }
-
 
 //funcao executada pelos escritores
 void *Escritor (void *threadid) {
@@ -60,11 +60,13 @@ void *Escritor (void *threadid) {
     
     //escreve...
      sem_post(&escr);
+     
+     fprintf(stderr, "Escritor: %d terminou de escrever!\n", tid);
+     
      sem_wait(&em_e); e--;
 
      if(e == 0) sem_post(&leit);
 
-     fprintf(stderr, "Escritor: %d terminou de escrever!\n", tid);
      sem_post(&em_e);
      
      sleep(1);
