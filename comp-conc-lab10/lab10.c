@@ -43,6 +43,7 @@ void *Leitor (void *threadid) {
   pthread_exit(NULL);
 }
 
+
 //funcao executada pelos escritores
 void *Escritor (void *threadid) {
   int tid = *(int*) threadid, i;
@@ -72,6 +73,7 @@ void *Escritor (void *threadid) {
   free(threadid);
   pthread_exit(NULL);
 }
+
 
 //funcao principal
 int main(int argc, char *argv[]) {
