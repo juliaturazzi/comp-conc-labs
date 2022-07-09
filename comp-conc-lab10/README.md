@@ -2,7 +2,7 @@
   <h4>(a) O valor inicial dos semáforos (em_e, em_l, escr, leit) deve ser igual a 1 para que o algoritmo funcione corretamente. </h4>
     
   <br>
-  <h4>(b) Não é possível reduzir o uso dos mecanismos de sincronização, visto que os quatro semáforos presentes no programa são necessários para que a sincronização ocorra entre as threads de mesmo tipo (escritora e escritora, leitora e leitora)e de tipos diferentes (escritora e leitora). </h4>
+  <h4>(b) Não é possível reduzir o uso dos mecanismos de sincronização, visto que os quatro semáforos presentes no programa são necessários para que a sincronização ocorra entre as threads de mesmo tipo (escritora e escritora, leitora e leitora) e de tipos diferentes (escritora e leitora). </h4>
 
   <br>
   <h4>(c)  Threads Leitoras = 2 e Escritoras = 6  </h4> <br>
