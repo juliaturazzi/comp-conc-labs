@@ -4,7 +4,7 @@
 #include <semaphore.h>
 #include<unistd.h>
 
-#define L 3
+#define L 4
 #define E 3
 
 #define NTHREADS L+E
