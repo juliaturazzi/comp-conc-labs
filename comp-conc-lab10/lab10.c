@@ -37,7 +37,6 @@ void *Leitor (void *threadid) {
 
      sem_post(&em_l);
 
-     sleep(1);
   }
   
   free(threadid);
